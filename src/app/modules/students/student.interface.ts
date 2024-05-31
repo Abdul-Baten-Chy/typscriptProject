@@ -1,3 +1,5 @@
+import { Types } from 'mongoose'
+
 export type StudentName = {
   firstName: string
   midName: string
@@ -22,6 +24,8 @@ export type LocalGurdian = {
 
 export type Students = {
   id: string
+  user: Types.ObjectId
+  password: String
   name: StudentName
   dob: string
   gender: 'male' | 'female'
@@ -33,6 +37,6 @@ export type Students = {
   bloodGroup?: 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-' | 'O+' | 'O-'
   gurdian: Gurdian
   localGurdian: LocalGurdian
-  isActive: 'active' | 'block'
   profileImage?: string
+  isDeleted: boolean
 }

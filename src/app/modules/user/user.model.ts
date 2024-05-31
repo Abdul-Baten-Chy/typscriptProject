@@ -16,7 +16,6 @@ const userSchema = new Schema<Tuser>(
     role: {
       type: String,
       enum: ['student', 'faculty', 'admin'],
-      required: true,
     },
     ststus: {
       type: String,

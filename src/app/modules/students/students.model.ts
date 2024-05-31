@@ -7,9 +7,22 @@ import {
 } from './student.interface'
 
 const nameSchema = new Schema<StudentName>({
-  firstName: { type: String, required: true },
-  midName: String,
-  lastName: { type: String, required: true },
+  firstName: {
+    type: String,
+    required: [true, 'First Name is required'],
+    trim: true,
+    maxlength: [20, 'Name can not be more than 20 characters'],
+  },
+  midName: {
+    type: String,
+    trim: true,
+  },
+  lastName: {
+    type: String,
+    trim: true,
+    required: [true, 'Last Name is required'],
+    maxlength: [20, 'Name can not be more than 20 characters'],
+  },
 })
 
 const gurdianSchema = new Schema<Gurdian>({
@@ -29,15 +42,27 @@ const localGurdianSchema = new Schema<LocalGurdian>({
 })
 
 const studentSchema = new Schema<Students>({
-  id: { type: String, unique: true },
-  name: { type: nameSchema, required: true },
-  dob: { type: String, required: true },
+  id: {
+    id: {
+      type: String,
+      required: [true, 'ID is required'],
+      unique: true,
+    },
+  },
+  user: {
+    type: Schema.Types.ObjectId,
+    required: [true, 'User id is required'],
+    unique: true,
+    ref: 'User',
+  },
+  name: { type: nameSchema, required: [true, 'name is required'] },
+  dob: { type: String, required: [true, 'DOB is required'] },
   gender: {
     type: String,
     enum: ['male', 'female'],
     required: [true, 'gender is very much required'],
   },
-  email: { type: String, required: true },
+  email: { type: String, required: [true, 'email is required'] },
   contuctNo: { type: String, required: true },
   emergencyContuct: { type: String, required: true },
   presentAddress: { type: String, required: true },
@@ -51,10 +76,6 @@ const studentSchema = new Schema<Students>({
   localGurdian: {
     type: localGurdianSchema,
     required: [true, 'local gurdian is needed'],
-  },
-  isActive: {
-    type: String,
-    enum: { values: ['active', 'block'], message: '{VALUE} is incorect value' },
   },
   profileImage: { type: String, required: true },
 })
